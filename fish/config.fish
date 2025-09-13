@@ -7,7 +7,7 @@ alias vlg="valgrind --leak-check=full --trace-children=yes --track-fds=yes"
 
 #=========== GIT
 alias ga="git add"
-alias gaa="git add all"
+alias gaa="git add -A"
 alias gp="git push"
 alias gst="git status"
 alias gsw="git switch"
