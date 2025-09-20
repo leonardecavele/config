@@ -1,38 +1,34 @@
 # Specifies the network interface to use for the LocalIP readout
-interface = "wlan0"
+#interface = "wlan0"
 
 # Lengthen uptime output
-long_uptime = true
+#long_uptime = true
 
 # Lengthen shell output
-long_shell = false
+#long_shell = false
 
 # Lengthen kernel output
-long_kernel = false
+long_kernel = true
 
 # Toggle between displaying the current shell or your user's default one.
 current_shell = true
 
 # Toggle between displaying the number of physical or logical cores of your
 # processor.
-physical_cores = true
+physical_cores = false
 
 # Disks to show disk usage for. Defaults to `["/"]`.
-# disks = ["/", "/home/user"]
+disks = ["/home/abetemps"]
 
 # Show percentage next to disk information
-# disk_space_percentage = true
+#disk_space_percentage = false
 
 # Show percentage next to memory information
-# memory_percentage = true
+#memory_percentage = false
 
 # Themes need to be placed in "$XDG_CONFIG_DIR/macchina/themes" beforehand.
-# e.g.:
-#  if theme path is /home/foo/.config/macchina/themes/Sodium.toml
-#  theme should be uncommented and set to "Sodium"
-#
-theme = "Mezora"
-show = ["Host", "Machine", "OperatingSystem", "Kernel", "Distribution", "Processor", "GPU", "ProcessorLoad", "Memory", "Terminal", "Shell"]
+theme = "abe"
+show = ["Host", "Machine", "Kernel", "Distribution",  "Processor","ProcessorLoad", "Memory", "DiskSpace", "Terminal", "Shell"]
 
 
 # Displays only the specified readouts.
