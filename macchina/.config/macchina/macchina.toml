@@ -31,7 +31,9 @@ physical_cores = true
 #  if theme path is /home/foo/.config/macchina/themes/Sodium.toml
 #  theme should be uncommented and set to "Sodium"
 #
-theme = "Naara"
+theme = "Mezora"
+show = ["Host", "Machine", "OperatingSystem", "Kernel", "Distribution", "Processor", "GPU", "ProcessorLoad", "Memory", "Terminal", "Shell"]
+
 
 # Displays only the specified readouts.
 # Accepted values (case-sensitive):
