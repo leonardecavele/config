@@ -16,3 +16,6 @@ keymap('n', '<leader><leader>', builtin.find_files, { desc = 'Telescope find fil
 keymap('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 keymap('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 keymap('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+
+-- NeoTree
+keymap('n', "<leader>t", "<Cmd>Neotree<CR>")
