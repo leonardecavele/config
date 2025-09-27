@@ -1,5 +1,8 @@
+# INCLUDES
 include shortcuts.conf
 # vim:fileencoding=utf-8:foldmethod=marker
+
+
 
 #: Fonts {{{
 
@@ -955,7 +958,7 @@ The current working directory or the command being executed are automatically di
 #: works on Wayland. See also kitty --position to specify the position
 #: when launching kitty.
 
-enabled_layouts Tall, *
+enabled_layouts Splits
 
 #: The enabled window layouts. A comma separated list of layout names.
 #: The special value all means all layouts. The first listed layout
@@ -1596,7 +1599,7 @@ editor /home/abetemps/.local/bin/nvim
 #: See rc_custom_auth <https://sw.kovidgoyal.net/kitty/remote-
 #: control/#rc-custom-auth> for details.
 
-# allow_remote_control no
+# allow_remote_control yes
 
 #: Allow other programs to control kitty. If you turn this on, other
 #: programs can control all aspects of kitty, including sending text
@@ -1625,7 +1628,7 @@ editor /home/abetemps/.local/bin/nvim
 #: yes
 #:     Remote control requests are always accepted.
 
-# listen_on none
+# listen_on unix:/tmp/kitty
 
 #: Listen to the specified socket for remote control connections. Note
 #: that this will apply to all kitty instances. It can be overridden
@@ -1769,7 +1772,7 @@ editor /home/abetemps/.local/bin/nvim
 #: special value of ask means that kitty will ask before opening the
 #: link when clicked.
 
-# shell_integration enabled
+shell_integration enabled
 
 #: Enable shell integration on supported shells. This enables features
 #: such as jumping to previous prompts, browsing the output of the
@@ -2794,7 +2797,7 @@ include current-theme.conf
 
 
 # BEGIN_KITTY_FONTS
-font_family      family="FiraCode Nerd Font Mono"
+font_family      family='FiraCode Nerd Font Mono' postscript_name=FiraCodeNFM-Reg
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
