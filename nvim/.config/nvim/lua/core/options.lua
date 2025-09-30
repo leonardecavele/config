@@ -32,3 +32,10 @@ opt.splitbelow = true
 -- Termguicolors
 opt.termguicolors = true
 opt.background = "dark"
+
+vim.cmd [[
+  highlight Normal guibg=none
+  highlight NonText guibg=none
+  highlight Normal ctermbg=none
+  highlight NonText ctermbg=none
+]]
