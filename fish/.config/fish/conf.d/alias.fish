@@ -22,3 +22,4 @@ alias gl="git pull"
 alias cmt="$HOME/.config/scripts/commit_maker.sh"
 
 #=========== TO SORT
+alias blue="~/blue42"
