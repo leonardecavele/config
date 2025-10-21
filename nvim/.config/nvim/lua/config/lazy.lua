@@ -21,6 +21,7 @@ require("lazy").setup({
   spec = {
     { import = "plugins" },
   },
+  performance = { rtp = { reset = false } },
   install = { colorscheme = { "habamax" } },
   checker = { enabled = true },
 })
