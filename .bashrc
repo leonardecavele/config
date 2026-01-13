@@ -18,6 +18,8 @@ PROMPT_COMMAND='rc=$?; printf "[%d] " "$rc"'
 # francinette
 alias paco=/home/ldecavel/francinette/tester.sh
 alias francinette=/home/ldecavel/francinette/tester.sh
+alias py='python3'
+alias p='python3'
 
 # perso
 alias ra='rm a.out'
@@ -25,6 +27,7 @@ alias c='cc -Wall -Wextra -Werror'
 alias n='norminette -R CheckForbiddenSourceHeader'
 alias ll='ls -la'
 alias vim='nvim'
+alias glow='/sgoinfre/elagouch/Packages/glow/2.1.0/glow'
 
 # bashrc
 shopt -s checkwinsize
@@ -68,5 +71,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH="$HOME/.cargo/bin:$PATH"
+alias func='grep -rE "[a-z_]+\([a-z_0-9,\* ]*\)"'
+
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 macchina --config ~/.config/macchina/macchina.toml
