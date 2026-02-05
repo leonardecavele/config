@@ -1,4 +1,3 @@
-
 -- https://github.com/kkoomen/vim-doge
 if vim.fn.exists(':DogeGenerate') then
 	vim.api.nvim_create_user_command('DogeAll', function()

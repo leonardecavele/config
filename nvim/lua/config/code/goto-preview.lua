@@ -1,4 +1,3 @@
-
 -- https://github.com/rmagatti/goto-preview
 local goto_preview_ok, goto_preview = pcall(require, "goto-preview")
 if goto_preview_ok then

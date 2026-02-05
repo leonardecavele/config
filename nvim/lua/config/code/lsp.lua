@@ -1,4 +1,3 @@
-
 -- https://github.com/neovim/nvim-lspconfig
 local mason_lsp_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
 if mason_lsp_ok then

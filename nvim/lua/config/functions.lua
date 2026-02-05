@@ -1,4 +1,4 @@
-
+-- keymap
 local opts = { noremap = true, silent = true }
 function keymap(mode, keybind, command, extended_opts)
     extended_opts = extended_opts or {}
@@ -6,6 +6,7 @@ function keymap(mode, keybind, command, extended_opts)
     vim.keymap.set(mode, keybind, command, final_opts)
 end
 
+-- python path
 local python_path_cache = nil
 function get_python_path()
 	if python_path_cache then return python_path_cache end
@@ -24,7 +25,7 @@ function get_python_path()
 	local detected_path = nil
     local method = ""
     
-	local venv_names = { ".venv", "venv", "env" }
+	local venv_names = { ".venv", "venv" }
     local bin_dir = (vim.fn.has("win32") == 1) and "/Scripts/python.exe" or "/bin/python"
     for _, name in ipairs(venv_names) do
         local venv_py = cwd .. "/" .. name .. bin_dir
@@ -65,13 +66,4 @@ function get_python_path()
 
 	python_path_cache = detected_path
     return python_path_cache
-end
-
-function editor_focus()
-    vim.schedule(function()
-        local win_type = vim.bo.filetype
-        if win_type == "NvimTree" then
-            vim.cmd("wincmd l")
-        end
-    end)
 end

@@ -1,8 +1,6 @@
 call plug#begin()
 
 " navigation
-Plug 'nvim-tree/nvim-web-devicons'
-Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 Plug 'nxhung2304/lastplace.nvim'
@@ -22,77 +20,35 @@ Plug 'neovim/nvim-lspconfig'
 " code -> completion
 Plug 'nvim-mini/mini.nvim'
 
-" code -> format
-Plug 'stevearc/conform.nvim'
-
 " tools
-Plug 'kdheepak/lazygit.nvim'
-Plug 'tpope/vim-surround'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 
 " appearance
 Plug 'folke/tokyonight.nvim'
 Plug 'xiyaowong/transparent.nvim'
-Plug 'tamton-aquib/staline.nvim'
-Plug 'sphamba/smear-cursor.nvim'
 Plug 'rachartier/tiny-glimmer.nvim'
 
 call plug#end()
 
 syntax on
-set nu
-set colorcolumn=79
+set number
+set colorcolumn=80
 set tabstop=4
 set shiftwidth=4
 set smartindent
 set autoindent
 
+" appearance
+set termguicolors
+
 set undofile
 set undodir=~/.local/share/nvim/undo/
-set undolevels=100
-
-function! CHeader()
-	let header = expand("%:t:r")
-	call append(0,"#ifndef ".toupper(header)."_H")
-	call append(1,"# define ".toupper(header)."_H")
-	call append(2,"")
-	call append(3,"")
-	call append(4,"")
-	call append(5,"#endif")
-	call cursor(4, 0)
-endfunction
-
-function! CMain()
-	call append(0,"#include <>")
-	call append(1,"")
-	call append(2,"int	main(int argc, char *argv[])")
-	call append(3,"{")
-	call append(4,"\t")
-	call append(5,"\treturn (0);")
-	call append(6,"}")
-	call cursor(5, 0)
-endfunction
-
-function! Main()
-    call append(1, "")
-    call append(2, "def main() -> None:")
-    call append(3, "    pass")
-    call append(4, "")
-    call append(5, "")
-    call append(6, "if __name__ == '__main__':")
-    call append(7, "	main()")
-	call cursor(4, 9)
-endfunction
-
-command! -nargs=0 CHeader call CHeader()
-command! -nargs=0 CMain call CMain()
-command! -nargs=0 Main call Main()
+set undolevels=99
 
 source ~/.vim/plugin/stdheader.vim
 source ~/.config/nvim/config.lua
 
-let g:user42 = 'nlallema'
-let g:mail42 = 'nlallema@student.42lyon.fr'
+let g:user42 = 'ldecavel'
+let g:mail42 = 'ldecavel@student.42lyon.fr'
 
-let g:doge_doc_standard_python = 'google'
+let g:doge_doc_standard_python = 'numpy'

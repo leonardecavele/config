@@ -75,3 +75,7 @@ alias func='grep -rE "[a-z_]+\([a-z_0-9,\* ]*\)"'
 
 export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 macchina --config ~/.config/macchina/macchina.toml
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"

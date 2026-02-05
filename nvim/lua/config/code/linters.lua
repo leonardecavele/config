@@ -1,4 +1,3 @@
-
 -- https://github.com/mfussenegger/nvim-lint
 -- Syntax + Types analysis
 local lint_ok, lint = pcall(require, "lint")
@@ -29,7 +28,7 @@ end
 
 vim.diagnostic.config({
 	virtual_text = {
-		prefix = "●",
+		prefix = "-",
 		severity_sort = true,
 	},
 	float = {

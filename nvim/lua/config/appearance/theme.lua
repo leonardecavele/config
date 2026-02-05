@@ -1,4 +1,3 @@
-
 -- https://github.com/folke/tokyonight.nvim
 local tokyonight_ok, tokyonight = pcall(require, "tokyonight")
 if tokyonight_ok then

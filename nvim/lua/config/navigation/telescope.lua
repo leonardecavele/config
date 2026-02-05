@@ -1,4 +1,3 @@
-
 -- https://github.com/nvim-telescope/telescope.nvim
 local telescope_ok, telescope_builtin = pcall(require, 'telescope.builtin')
 if telescope_ok then
