@@ -24,6 +24,7 @@ else
 	junest -n sudo pacman -S --noconfirm nvim
 	junest -n sudo pacman -S --noconfirm btop
 	junest -n sudo pacman -S --noconfirm macchina
+	junest -n sudo pacman -S --noconfirm openssh
 fi
 
 # install vim plug
