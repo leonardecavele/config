@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# functions
+install() {
+  local pkgs=("$@")
+  sudo pacman -S --noconfirm --needed "${pkgs[@]}"
+}
+
+junest_install() {
+  local pkgs=("$@")
+  junest -n sudo pacman -S --noconfirm --needed "${pkgs[@]}"
+}
+
+# check
 if /usr/bin/sudo -n true >/dev/null 2>&1 && command -v pacman >/dev/null 2>&1; then
 	echo "sudo + pacman available"
 
@@ -20,12 +32,23 @@ else
 	junest setup
 	junest -n sudo pacman -S --noconfirm archlinux-keyring
 	junest -n sudo pacman -Syu --noconfirm
-	junest -n sudo pacman -S --noconfirm kitty
-	junest -n sudo pacman -S --noconfirm nvim
-	junest -n sudo pacman -S --noconfirm btop
-	junest -n sudo pacman -S --noconfirm macchina
-	junest -n sudo pacman -S --noconfirm openssh
 fi
+echo ""
+
+# maybe prepend junest -n
+pkgs=(kitty nvim btop macchina openssh nodejs npm)
+
+if command -v junest >/dev/null 2>&1; then
+  junest -n sudo pacman -Syu --noconfirm
+  junest_install "${pkgs[@]}"
+  junest -n npm -g ls pyright >/dev/null 2>&1 || junest -n sudo npm i -g --no-fund --no-audit pyright
+  junest -n sudo npm i -g --no-fund --no-audit pyright
+else
+  sudo pacman -Syu --noconfirm
+  install "${pkgs[@]}"
+  npm -g ls pyright >/dev/null 2>&1 || sudo npm i -g --no-fund --no-audit pyright
+fi
+echo ""
 
 # install vim plug
 function install_vim_plug
@@ -57,6 +80,8 @@ for comp in "${components[@]}" ; do :
 	echo done
 done
 ln -svf "$PWD/.bashrc" "$JUNEST_HOME/"
+
+install_vim_plug
 
 # info
 echo ""
