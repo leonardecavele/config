@@ -1,88 +1,47 @@
-# only for interactive shells
-HOST_HOME="$HOME"
-JUNEST_BIN_DIR="$HOST_HOME/config/junest/bin"
-JUNEST_WRAPPERS="$HOST_HOME/.junest/usr/bin_wrappers"
+# variables
+export JUNEST=/home/leona/.archlinux-env/junest/bin/junest
+export JUNEST_REPOSITORY=/home/leona/.archlinux-env/junest
+export SCRIPT_DIRECTORY=/home/leona/.archlinux-env
 
-# make junest discoverable early (without changing priority too much)
-if [ -d "$JUNEST_BIN_DIR" ]; then
-  export PATH="$PATH:$JUNEST_BIN_DIR"
+# get logger and utils
+source "$SCRIPT_DIRECTORY/srcs/log.sh"
+source "$SCRIPT_DIRECTORY/srcs/utils.sh"
+
+# delete reloaded terminal that asked for it
+if [ "${EXIT_JUNEST:-1}" -eq 0 ]; then
+  "$SCRIPT_DIRECTORY/main.sh" -d
+  unset EXIT_JUNEST
 fi
 
-# detect if we're already inside junest (reliable)
-IN_JUNEST_SHELL=0
-PACMAN_PATH="$(command -v pacman 2>/dev/null || true)"
-
-if [ -n "${JUNEST_HOME:-}" ] || [ -n "${JUNEST_ROOT:-}" ]; then
-  IN_JUNEST_SHELL=1
-elif [ -n "$PACMAN_PATH" ] && [ -n "$JUNEST_WRAPPERS" ]; then
-  case "$PACMAN_PATH" in
-    "$JUNEST_WRAPPERS"/*) IN_JUNEST_SHELL=1 ;;
-  esac
+# enter junest if not in junest
+if ! in_junest && junest_installed; then
+  exec $JUNEST -n /usr/bin/bash -i
 fi
 
-# if in junest, put wrappers first (so nvim inherits correct PATH)
-if [ "$IN_JUNEST_SHELL" -eq 1 ]; then
-  export PATH="$JUNEST_WRAPPERS:$JUNEST_BIN_DIR:$PATH"
-  hash -r
+# if not in junest, set-up junest alias
+if junest_installed && ! in_junest; then
+  alias junest='$JUNEST'
 fi
 
-# auto-enter junest when host lacks sudo/pacman
-# do it only if NOT already inside junest
-if [ "$IN_JUNEST_SHELL" -eq 0 ] && [ -z "${IN_JUNEST:-}" ]; then
-  if ! (/usr/bin/sudo -n true >/dev/null 2>&1 && command -v pacman >/dev/null 2>&1); then
-    if command -v junest >/dev/null 2>&1; then
-      if [ -x "$HOME/.junest/usr/bin/bash" ] || [ -d "$HOME/.junest/usr/bin" ]; then
-        # IMPORTANT: set IN_JUNEST inside the exec'ed bash too (junest may sanitize env)
-        if [ -x /usr/bin/bash ]; then
-          exec junest -n env IN_JUNEST=1 /usr/bin/bash -i
-        elif [ -x /bin/bash ]; then
-          exec junest -n env IN_JUNEST=1 /bin/bash -i
-        else
-          exec junest -n env IN_JUNEST=1 sh -i
-        fi
-      else
-        echo "[junest] image not installed: run 'junest setup' once"
-      fi
-    fi
-  fi
-fi
-
-# colors
-RESET="\[\033[00m\]"
-BLUE="\[\033[01;34m\]"
-GREEN="\[\033[01;32m\]"
-MAGENTA="\[\033[01;91m\]"
-
-# func
-git_branch() {
-  branch=$(git symbolic-ref --short HEAD 2>/dev/null)
-  if [ -n "$branch" ]; then
-    echo "$branch"
-  fi
-}
-
-# alias
+# aliases
 alias ra='rm a.out'
 alias c='cc -Wall -Wextra -Werror'
 alias n='norminette -R CheckForbiddenSourceHeader'
 alias ll='ls -la'
 alias vim='nvim'
-alias py='python3'
 alias p='python3'
+alias ej='exit_junest'
+
+
+
+
+
 
 # prompt
 shopt -s checkwinsize
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
 
 PROMPT_COMMAND='rc=$?; printf "[%d] " "$rc"'
 PS1="${GREEN}\u@\h ${BLUE}\W${MAGENTA} \$(git_branch)\n${RESET}\$ "
@@ -117,12 +76,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# CARGO
-export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
-
-if [[ -z "${MACHINE_ALREADY_SHOWN:-}" ]]; then
+if [[ -z "${MACCHINA_SHOWN:-1}" ]]; then
   macchina --config ~/.config/macchina/macchina.toml
-  export MACHINE_ALREADY_SHOWN=1
+  export MACCHINA_SHOWN=1
 fi
 
 cd ~/

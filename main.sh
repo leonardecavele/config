@@ -9,19 +9,46 @@ export JUNEST_REPOSITORY="$SCRIPT_DIRECTORY/junest"
 export JUNEST="${JUNEST:-$JUNEST_REPOSITORY/bin/junest}"
 export user="leona"
 
+
+
+
+printf -v VAR '%q' "$SCRIPT_DIRECTORY"
+if ! grep -qE '^export SCRIPT_DIRECTORY=' "$SCRIPT_DIRECTORY/config/.bashrc"; then
+  sed -i "/^# variables$/a export SCRIPT_DIRECTORY=$VAR" "$SCRIPT_DIRECTORY/config/.bashrc"
+fi
+printf -v VAR '%q' "$JUNEST_REPOSITORY"
+if ! grep -qE '^export JUNEST_REPOSITORY=' "$SCRIPT_DIRECTORY/config/.bashrc"; then
+  sed -i "/^# variables$/a export JUNEST_REPOSITORY=$VAR" "$SCRIPT_DIRECTORY/config/.bashrc"
+fi
+printf -v VAR '%q' "$JUNEST"
+if ! grep -qE '^export JUNEST=' "$SCRIPT_DIRECTORY/config/.bashrc"; then
+  sed -i "/^# variables$/a export JUNEST=$VAR" "$SCRIPT_DIRECTORY/config/.bashrc"
+fi
+
+
+
 # get logger and utils
 source "$SCRIPT_DIRECTORY/srcs/log.sh"
 source "$SCRIPT_DIRECTORY/srcs/utils.sh"
 
-# arguments
-if [ "${1-}" = "-d" ] || [ "${1-}" = "-ds" ]; then
+# delete the config
+if [ "${1-}" = "-d" ]; then
   if in_junest; then
-    log_error "please type 'exit' to quit junest first"
-	exit 1
+    log_error "please leave junest first, by typing 'ej' and reopening your terminal"
+    exit 1
   fi
+  # erase repository and junest
   rm -rf -- "$JUNEST_REPOSITORY" "$HOME/.junest"
+  # erase variables in .bashrc
+  perl -0777 -i -pe 's/^# variables[ \t]*\R.*?(?=^#)/# variables\n\n/sm' \
+	  "$SCRIPT_DIRECTORY/config/.bashrc"
+  # erase symlinks
+  rm -f $HOME/.config/macchina $HOME/.config/nvim $HOME/.bashrc
   log_info "junest successfully uninstalled"
-  [ "${1-}" = "-ds" ] && exit 0
+  exit 0
+elif [ "${1-}" != "-s" ]; then
+  log_error "invalid argument, usage: ./main.sh -s [SET-UP] | -d [DELETE]"
+  exit 1
 fi
 
 # if user have sudo and pacman

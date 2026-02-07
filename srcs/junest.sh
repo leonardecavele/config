@@ -4,8 +4,8 @@
 set -euo pipefail
 
 # get logger
-source "$SCRIPT_DIRECTORY/scripts/log.sh"
-source "$SCRIPT_DIRECTORY/scripts/utils.sh"
+source "$SCRIPT_DIRECTORY/srcs/log.sh"
+source "$SCRIPT_DIRECTORY/srcs/utils.sh"
 
 # clone junest repository
 if ! junest_installed; then
