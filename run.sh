@@ -7,6 +7,7 @@ set -euo pipefail
 export SCRIPT_DIRECTORY="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 export JUNEST_REPOSITORY="$SCRIPT_DIRECTORY/junest"
 export JUNEST="${JUNEST:-$JUNEST_REPOSITORY/bin/junest}"
+export user="leona"
 
 # get logger
 source "$SCRIPT_DIRECTORY/scripts/log.sh"
@@ -21,6 +22,5 @@ else
   bash "$SCRIPT_DIRECTORY/scripts/config.sh"
 fi
 
-echo ""
 log_info "reloading shell"
 exec bash -l
