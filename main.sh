@@ -10,8 +10,8 @@ export JUNEST="${JUNEST:-$JUNEST_REPOSITORY/bin/junest}"
 export user="leona"
 
 # get logger and utils
-source "$SCRIPT_DIRECTORY/scripts/log.sh"
-source "$SCRIPT_DIRECTORY/scripts/utils.sh"
+source "$SCRIPT_DIRECTORY/srcs/log.sh"
+source "$SCRIPT_DIRECTORY/srcs/utils.sh"
 
 # arguments
 if [ "${1-}" = "-d" ] || [ "${1-}" = "-ds" ]; then
@@ -27,11 +27,11 @@ fi
 # if user have sudo and pacman
 if sudo_pacman_available; then
   log_info "sudo + pacman available: installing on home"
-  bash "$SCRIPT_DIRECTORY/scripts/config.sh"
+  bash "$SCRIPT_DIRECTORY/srcs/config.sh"
 else
   log_info "sudo and/or pacman not available: installing on junest"
-  bash "$SCRIPT_DIRECTORY/scripts/junest.sh"
-  bash "$SCRIPT_DIRECTORY/scripts/config.sh"
+  bash "$SCRIPT_DIRECTORY/srcs/junest.sh"
+  bash "$SCRIPT_DIRECTORY/srcs/config.sh"
 fi
 
 log_info "if needed, run '$0' again to update pacman packages"
