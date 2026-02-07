@@ -3,12 +3,13 @@
 # strict with errors
 set -euo pipefail
 
-# get library
-source "$SCRIPT_DIRECTORY/scripts/lib.sh"
+# get logger
+source "$SCRIPT_DIRECTORY/scripts/log.sh"
 
 # pacman package list
 pkgs=(
   neovim
+  less
   base-devel
   macchina
   which
