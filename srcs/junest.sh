@@ -1,12 +1,5 @@
 #!/usr/bin/env bash
 
-# strict with errors
-set -euo pipefail
-
-# get logger
-source "$SCRIPT_DIRECTORY/srcs/log.sh"
-source "$SCRIPT_DIRECTORY/srcs/utils.sh"
-
 # clone junest repository
 if ! junest_installed; then
   git clone https://github.com/leonardecavele/junest.git "$JUNEST_REPOSITORY"

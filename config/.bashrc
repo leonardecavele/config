@@ -5,12 +5,18 @@ export SCRIPT_DIRECTORY=/home/leona/.archlinux-env
 
 # get logger and utils
 source "$SCRIPT_DIRECTORY/srcs/log.sh"
-source "$SCRIPT_DIRECTORY/srcs/utils.sh"
+source "$SCRIPT_DIRECTORY/srcs/helper.sh"
+
+# get tmp directory
+TTY_ID="$(tty 2>/dev/null || echo notty)"
+TMP_DIRECTORY="${XDG_RUNTIME_DIR:-/tmp}"
+MACCHINA_SHOWN="$TMP_DIRECTORY/macchina.$(echo "$TTY_ID" | tr '/:' '__')"
 
 # delete reloaded terminal that asked for it
 if [ "${EXIT_JUNEST:-1}" -eq 0 ]; then
   "$SCRIPT_DIRECTORY/main.sh" -d
   unset EXIT_JUNEST
+  unset MACCHINA_SHOWN
 fi
 
 # enter junest if not in junest
@@ -30,7 +36,6 @@ alias n='norminette -R CheckForbiddenSourceHeader'
 alias ll='ls -la'
 alias vim='nvim'
 alias p='python3'
-alias ej='exit_junest'
 
 
 
@@ -79,12 +84,8 @@ export NVM_DIR="$HOME/.nvm"
 
 
 # macchina
-tty_id="$(tty 2>/dev/null || echo notty)"
-guard_directory="${XDG_RUNTIME_DIR:-/tmp}"
-
-guard="$guard_directory/macchina.$(echo "$tty_id" | tr '/:' '__')"
-if [ ! -e "$guard" ]; then
-  : > "$guard"
+if [ ! -e "$MACCHINA_SHOWN" ]; then
+  : > "$MACCHINA_SHOWN"
   macchina --config ~/.config/macchina/macchina.toml
 fi
 
