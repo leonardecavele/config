@@ -37,6 +37,3 @@ if in_arch && [ ! -e "$MACCHINA_SHOWN" ]; then
   : > "$MACCHINA_SHOWN"
   macchina --config ~/.config/macchina/macchina.toml
 fi
-
-# go to home
-cd ~/
