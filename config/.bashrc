@@ -1,29 +1,20 @@
 # variables
+export JUNEST=/home/leona/.archlinux-env/junest/bin/junest
+export JUNEST_REPOSITORY=/home/leona/.archlinux-env/junest
+export SCRIPT_DIRECTORY=/home/leona/.archlinux-env
 
 # get logger and utils
 source "$SCRIPT_DIRECTORY/srcs/helper.sh"
-
-# get tmp directory
-TTY_ID="$(tty 2>/dev/null || echo notty)"
-TMP_DIRECTORY="${XDG_RUNTIME_DIR:-/tmp}"
-MACCHINA_SHOWN="$TMP_DIRECTORY/macchina.$(echo "$TTY_ID" | tr '/:' '__')"
 
 # delete reloaded terminal that asked for it
 if [ "${EXIT_JUNEST:-1}" -eq 0 ]; then
   "$SCRIPT_DIRECTORY/main.sh" -r
   unset EXIT_JUNEST
-  unset MACCHINA_SHOWN
-  IN_RELOAD=1
 fi
 
 # enter junest if not in junest
-if ! in_junest && junest_installed; then
+if ! in_arch && junest_installed; then
   exec "$JUNEST" -n /usr/bin/bash -i
-fi
-
-# if not in junest, set-up junest alias
-if junest_installed && ! in_junest; then
-  alias junest='$JUNEST'
 fi
 
 # aliases
@@ -80,10 +71,16 @@ export NVM_DIR="$HOME/.nvm"
 
 
 
+
+
+
+
 # macchina
-if [ ! -e "$MACCHINA_SHOWN" ] && [ -z "${IN_RELOAD:-}" ] ; then
+TMP_DIRECTORY="${XDG_RUNTIME_DIR:-/tmp}"
+MACCHINA_SHOWN="$TMP_DIRECTORY/macchina.$$"
+if in_arch && [ ! -e "$MACCHINA_SHOWN" ]; then
   : > "$MACCHINA_SHOWN"
-  macchina --config ~/.config/macchina/macchina.toml
+  command -v macchina >/dev/null 2>&1 && macchina --config ~/.config/macchina/macchina.toml
 fi
 
 # go to home

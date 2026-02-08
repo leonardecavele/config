@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # detect mode to set RUNner
-if in_junest; then
+if in_arch && junest_installed; then
   MODE="DIRECT"
   RUN=()
 else

@@ -12,7 +12,7 @@ junest_installed() {
   return 1
 }
 
-in_junest() {
+in_arch() {
   if [ -f /etc/arch-release ] && command -v pacman >/dev/null 2>&1; then
     return 0
   fi

@@ -20,8 +20,9 @@ if [ "${1-}" != "-s" ] && [ "${1-}" != "-u" ] && [ "${1-}" != "-r" ]; then
 fi
 
 if [ "${1-}" = "-r" ] || [ "${1-}" = "-u" ]; then
-  if [ "${1-}" = "-r" ] && in_junest; then
-    log_error "please leave junest first. type 'exit_junest' and restart your terminal"
+  if [ "${1-}" = "-r" ] && in_arch && junest_installed; then
+	exit_junest
+    log_info "please restart your terminal"
     exit 1
   fi
   perl -0777 -i -pe 's/^# variables[ \t]*\R.*?(?=^#)/# variables\n\n/sm' \
@@ -74,7 +75,7 @@ log_info "[${MODE}] done installing vim plug: open neovim and run ':PlugInstall'
 
 log_info "reloading shell"
 
-if in_junest; then
+if in_arch; then
   source $HOME/.bashrc
 else
   exec bash -l
