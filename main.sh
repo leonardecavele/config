@@ -10,7 +10,7 @@ export JUNEST="${JUNEST:-$JUNEST_REPOSITORY/bin/junest}"
 
 # get logger and utils
 source "$SCRIPT_DIRECTORY/srcs/helper.sh"
-source "$SCRIPT_DIRECTORY/parameters.sh"
+source "$SCRIPT_DIRECTORY/options.sh"
 
 # handle arguments
 if [[ "${1-}" == "-h" || ( "${1-}" != "-s" && "${1-}" != "-u" && "${1-}" != "-r" ) ]]; then
