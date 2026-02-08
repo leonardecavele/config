@@ -56,3 +56,8 @@ if in_arch && [ ! -e "$MACCHINA_SHOWN" ]; then
   : > "$MACCHINA_SHOWN"
   macchina --config ~/.config/macchina/macchina.toml
 fi
+
+# auto-tmux (interactive only)
+if [ -z "${TMUX:-}" ] && [ -z "${SSH_TTY:-}" ]; then
+  exec tmux new-session -A -s main
+fi

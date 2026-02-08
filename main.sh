@@ -62,7 +62,10 @@ for dir in "$SCRIPT_DIRECTORY/config"/*/; do
   [ -r "$dir" ] || continue
   ln -svf "$dir" "$HOME/.config/" || true
 done
-ln -svf "$SCRIPT_DIRECTORY/config/.bashrc" "$HOME/.bashrc" || true
+for path in "$SCRIPT_DIRECTORY/config"/.[!.]* "$SCRIPT_DIRECTORY/config"/..?*; do
+  [ -e "$path" ] || continue
+  ln -svf "$path" "$HOME/" || true
+done
 
 # vim-plug
 log_info "[${MODE}] installing vim plug"
