@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# detect mode to set runner
+# detect mode to set RUNner
 if in_junest; then
   MODE="DIRECT"
   RUN=()
@@ -26,18 +26,25 @@ if [ "${1-}" = "-i" ] ; then
   log_info "[${MODE}] done updating or installing pacman packages"
   
   log_info "[${MODE}] updating or installing npm packages"
-  if ! "${run[@]}" npm i -g --no-fund --no-audit "${npms[@]}"; then
-    "${run[@]}" sudo npm i -g --no-fund --no-audit "${npms[@]}"
+  if ! "${RUN[@]}" npm i -g --no-fund --no-audit "${npms[@]}"; then
+    "${RUN[@]}" sudo npm i -g --no-fund --no-audit "${npms[@]}"
   fi
   log_info "[${MODE}] done updating or installing npm packages"
 else
   log_info "[${MODE}] uninstalling npm packages"
-  if ! "${run[@]}" npm -g uninstall "${npms[@]}"; then
-    "${run[@]}" sudo npm -g uninstall "${npms[@]}"
+  if ! "${RUN[@]}" npm uninstall -g "${npms[@]}"; then
+    "${RUN[@]}" sudo npm uninstall -g "${npms[@]}"
   fi
   log_info "[${MODE}] done uninstalling npm packages"
 
   log_info "[${MODE}] uninstalling pacman packages"
-  "${RUN[@]}" sudo pacman -Rns --noconfirm "${pkgs[@]}"
+  for p in "${pkgs[@]}"; do
+    if "${RUN[@]}" pacman -Qq "$p" >/dev/null 2>&1; then
+      if ! "${RUN[@]}" sudo pacman -Rns --noconfirm "$p" </dev/null; then
+        log_info "[${MODE}] skipped (blocked by deps?): $p"
+      fi
+    fi
+  done
+  "${RUN[@]}" sudo pacman -Scc --noconfirm </dev/null || true
   log_info "[${MODE}] done uninstalling pacman packages"
 fi

@@ -1,10 +1,6 @@
 # variables
-export JUNEST=/home/leona/.archlinux-env/junest/bin/junest
-export JUNEST_REPOSITORY=/home/leona/.archlinux-env/junest
-export SCRIPT_DIRECTORY=/home/leona/.archlinux-env
 
 # get logger and utils
-source "$SCRIPT_DIRECTORY/srcs/log.sh"
 source "$SCRIPT_DIRECTORY/srcs/helper.sh"
 
 # get tmp directory
@@ -14,9 +10,10 @@ MACCHINA_SHOWN="$TMP_DIRECTORY/macchina.$(echo "$TTY_ID" | tr '/:' '__')"
 
 # delete reloaded terminal that asked for it
 if [ "${EXIT_JUNEST:-1}" -eq 0 ]; then
-  "$SCRIPT_DIRECTORY/main.sh" -d
+  "$SCRIPT_DIRECTORY/main.sh" -r
   unset EXIT_JUNEST
   unset MACCHINA_SHOWN
+  IN_RELOAD=1
 fi
 
 # enter junest if not in junest
@@ -84,7 +81,7 @@ export NVM_DIR="$HOME/.nvm"
 
 
 # macchina
-if [ ! -e "$MACCHINA_SHOWN" ]; then
+if [ ! -e "$MACCHINA_SHOWN" ] && [ -z "${IN_RELOAD:-}" ] ; then
   : > "$MACCHINA_SHOWN"
   macchina --config ~/.config/macchina/macchina.toml
 fi

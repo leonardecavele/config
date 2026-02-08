@@ -8,7 +8,6 @@ pkgs=(
   man-pages
   macchina
   which
-  man
   tree
   tree-sitter-cli
   openssh
