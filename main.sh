@@ -41,6 +41,8 @@ if [ "${1-}" = "-u" ]; then
 fi
 
 export_in_bashrc "SCRIPT_DIRECTORY" "$SCRIPT_DIRECTORY"
+export_in_bashrc "JUNEST_REPOSITORY" "$JUNEST_REPOSITORY"
+export_in_bashrc "JUNEST" "$JUNEST"
 
 # install
 if sudo_pacman_available; then

@@ -26,8 +26,19 @@ if [ "${1-}" = "-i" ] ; then
   log_info "[${MODE}] done updating or installing pacman packages"
   
   log_info "[${MODE}] updating or installing npm packages"
-  if ! "${RUN[@]}" npm i -g --no-fund --no-audit "${npms[@]}"; then
-    "${RUN[@]}" sudo npm i -g --no-fund --no-audit "${npms[@]}"
+  missing_npms=()
+  for pkg in "${npms[@]}"; do
+    if ! "${RUN[@]}" npm -g ls "$pkg" --depth=0 >/dev/null 2>&1; then
+      missing_npms+=("$pkg")
+    fi
+  done
+  
+  if [ "${#missing_npms[@]}" -eq 0 ]; then
+    echo " there is nothing to do"
+  else
+    if ! "${RUN[@]}" npm i -g --no-fund --no-audit "${missing_npms[@]}"; then
+      "${RUN[@]}" sudo npm i -g --no-fund --no-audit "${missing_npms[@]}"
+    fi
   fi
   log_info "[${MODE}] done updating or installing npm packages"
 else
