@@ -1,0 +1,17 @@
+[user]
+    name = leonardecavele
+    email = leonard.decavele@gmail.com
+
+[core]
+    editor = nvim
+
+[pull]
+    rebase = false
+
+[merge]
+    tool = nvimdiff
+    conflictstyle = zdiff3
+
+[mergetool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
+    keepBackup = false
