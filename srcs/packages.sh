@@ -2,13 +2,12 @@
 if in_arch && junest_installed; then
   MODE="DIRECT"
   RUN=()
-else
-  if ! junest_installed; then
-    log_error "junest not found at: $JUNEST"
-    exit 1
-  fi
+elif in_arch; then
   MODE="HOST TO JUNEST"
   RUN=("$JUNEST" -n)
+else
+  log_error "junest not found at: $JUNEST"
+  exit 1
 fi
 
 # handle arguments
