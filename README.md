@@ -6,8 +6,8 @@ not available on the host system, the environment is automatically replaced by a
 overriding the host system.
 
 ### USAGE
-If you already set-up the environment, you can access this script at any time, by simply using ``al-env``. For example: 
-``al-env -s`` updates your packages whatever is your pwd.
+If you already set-up the environment, you can access this script at any time, by simply using ``ale``. For example: 
+``ale -s`` updates your packages whatever is your pwd.
 ```text
 Usage: main.sh [OPTION]
 
