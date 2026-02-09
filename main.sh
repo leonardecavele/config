@@ -53,7 +53,7 @@ if sudo_pacman_available; then
     /etc/locale.gen
   echo 'LANG=en_US.UTF-8' | sudo tee /etc/locale.conf >/dev/null
   log_info "done populating locale"
-endif
+fi
 
 # install
 if sudo_pacman_available; then
