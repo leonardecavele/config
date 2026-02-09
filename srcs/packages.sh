@@ -1,13 +1,10 @@
 # detect mode and set appropriate runner
-if in_arch && junest_installed; then
+if in_arch; then
   MODE="DIRECT"
   RUN=()
-elif in_arch; then
+else
   MODE="HOST TO JUNEST"
   RUN=("$JUNEST" -n)
-else
-  log_error "junest not found at: $JUNEST"
-  exit 1
 fi
 
 # handle arguments
