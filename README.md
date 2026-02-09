@@ -70,3 +70,4 @@ if you edit any other file. You might want to edit ``.gitconfig`` as well.
 - `C-Space p`  Switch to previous pane  
 - `C-Space Space`  Change pane layout
 - `C-Space R`  Reload tmux
+- `C-Space z`  Single pane focus
