@@ -26,7 +26,6 @@ elif [ "${1-}" = "-d" ] ; then
       fi
     fi
   done
-  sudo dnf autoremove -y </dev/null || true
   sudo dnf clean all -y </dev/null || true
 
   log_info "$0" "successfully deleted dnf packages"

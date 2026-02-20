@@ -39,7 +39,6 @@ elif [ "${1-}" = "-d" ] ; then
       fi
     fi
   done
-  sudo apt-get autoremove -y -q </dev/null || true
   sudo apt-get clean </dev/null || true
 
   log_info "$0" "successfully deleted apt packages"

@@ -28,7 +28,7 @@ elif [ "${1-}" = "-d" ] ; then
 
   for pkg in "${pacman_pkgs[@]}"; do
     if "${RUN[@]}" pacman -Qq "$pkg" >/dev/null 2>&1; then
-      if ! "${RUN[@]}" sudo pacman -Rns --noconfirm "$pkg" </dev/null; then
+      if ! "${RUN[@]}" sudo pacman -R --noconfirm "$pkg" </dev/null; then
         log_info "$0" "skipped (blocked by deps?): $pkg"
       fi
     fi
