@@ -1,7 +1,4 @@
 # variables
-export JUNEST=/home/leona/.archlinux-env/junest/bin/junest
-export JUNEST_REPOSITORY=/home/leona/.user-env/junest
-export SCRIPT_DIRECTORY=/home/leona/.user-env
 
 # stop if not interactive
 case $- in
@@ -29,7 +26,7 @@ fi
 
 # enter junest if not in junest
 if ! in_arch && junest_installed; then
-  exec "$JUNEST" -b "${bind[@]}" -n /usr/bin/bash -i
+  "$JUNEST" -b "${bind[@]}" -n /usr/bin/bash -i
   return 0 2>/dev/null || true
 fi
 
