@@ -73,6 +73,7 @@ if [ ! -f "$plug_path" ]; then
   curl -sfLo "$plug_path" --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
 fi
-"$HOME/.local/bin/nvim" --headless +PlugInstall +PlugUpdate +qa
+"$HOME/.local/bin/nvim" --headless +'PlugInstall --sync' +qa >/dev/null 2>&1
+"$HOME/.local/bin/nvim" --headless +'PlugUpdate --sync' +qa >/dev/null 2>&1
 
 log_info "$0" "vim plug succesfully installed"

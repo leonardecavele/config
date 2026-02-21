@@ -37,3 +37,7 @@ if is_npm; then
 else
   log_info "$0" "can't find npm"
 fi
+
+# update vim plug-ins
+"$HOME/.local/bin/nvim" --headless +'PlugInstall --sync' +qa >/dev/null 2>&1
+"$HOME/.local/bin/nvim" --headless +'PlugUpdate --sync' +qa >/dev/null 2>&1
