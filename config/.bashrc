@@ -15,7 +15,7 @@ source "$SCRIPT_DIRECTORY/srcs/colors.sh"
 
 # junest
 if is_junest; then
-  export PATH="$SCRIPT_DIRECTORY/junest/bin:$PATH"
+  export PATH="$PATH:$SCRIPT_DIRECTORY/junest/bin"
   export PATH="$PATH:$HOME/.junest/usr/bin_wrappers"
   export JUNEST_ARGS="$binded_dirs"
 fi
