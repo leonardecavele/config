@@ -43,6 +43,9 @@ if [ "${1-}" = "-d" ]; then
     rm -f -- "$HOME/$name"
   done
 
+  # remove exports of bashrc
+  clean_bashrc_exports
+
   # deleting config remaining files
   rm -rf "$HOME/.local/share/nvim"
 
