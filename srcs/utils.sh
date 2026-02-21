@@ -16,6 +16,7 @@ is_apt() {
 }
 
 is_sudo() {
+  return 1
   /usr/bin/sudo -n true >/dev/null 2>&1
 }
 
@@ -111,4 +112,9 @@ can_delete_dnf() {
   printf '%s\n' "$out" | grep -qE "(^|[[:space:]])$pkg([[:space:]]|$)" || return 1
 
   return 0
+}
+
+reload_shell() {
+  log_info "$0" "reloading shell"
+  exec bash -i
 }

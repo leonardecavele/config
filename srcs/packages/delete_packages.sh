@@ -28,6 +28,15 @@ else
   log_info "$0" "can't find npm"
 fi
 
+# delete nvim
+if is_nvim; then
+  rm -f "$HOME/.local/bin/nvim"
+fi
+
+# delete vimplug
+rm -f "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim"
+rm -rf "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/plugged"
+
 # detect package manager
 if is_pacman; then
   source "$SCRIPT_DIRECTORY/srcs/packages/pacman.sh" -d

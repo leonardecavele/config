@@ -52,7 +52,8 @@ if [ "${1-}" = "-d" ]; then
   fi
 
   log_info "$0" "config successfully deleted"
-  exit 0
+
+  reload_shell
 fi
 
 if [ "${1-}" = "-u" ]; then
@@ -62,6 +63,8 @@ if [ "${1-}" = "-u" ]; then
 	source "$SCRIPT_DIRECTORY/srcs/packages/update_packages.sh" -u
 
 	log_info "$0" "packages successfully updated"
+
+	reload_shell
 fi
 
 # install
@@ -93,6 +96,4 @@ for path in "$SCRIPT_DIRECTORY/config"/.[!.]* "$SCRIPT_DIRECTORY/config"/..?*; d
   ln -svf "$path" "$HOME/" || true
 done
 
-# shell reload
-log_info "$0" "reloading shell"
-exec bash -i
+reload_shell
