@@ -1,3 +1,8 @@
+if [[ "${bash_source[1]}" == "${0}" ]]; then
+  log_error "${bash_source[1]}" "this script is not meant to be sourced nor executed"
+  exit 1
+fi
+
 # cat -> pygmentize on each file argument
 unalias cat 2>/dev/null
 unset -f cat 2>/dev/null

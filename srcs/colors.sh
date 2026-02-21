@@ -1,3 +1,8 @@
+if [[ "${bash_source[1]}" == "${0}" ]]; then
+  log_error "${bash_source[1]}" "this script is not meant to be sourced nor executed"
+  exit 1
+fi
+
 # colors
 RED=$'\e[0;31m'
 YELLOW=$'\e[0;33m'

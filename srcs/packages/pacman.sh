@@ -1,3 +1,8 @@
+if [[ "${bash_source[1]}" == "${0}" ]]; then
+  log_error "${bash_source[1]}" "this script is not meant to be sourced nor executed"
+  exit 1
+fi
+
 SNAP_DIR="$SCRIPT_DIRECTORY/snapshots"
 SNAP_BASE="$SNAP_DIR/pacman_before.snp"
 SNAP_CUR="$SNAP_DIR/pacman_now.snp"

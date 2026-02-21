@@ -1,3 +1,8 @@
+if [[ "${bash_source[1]}" == "${0}" ]]; then
+  log_error "${bash_source[1]}" "this script is not meant to be sourced nor executed"
+  exit 1
+fi
+
 is_junest() {
   command -v $JUNEST >/dev/null 2>&1 \
   && $JUNEST --version >/dev/null 2>&1
