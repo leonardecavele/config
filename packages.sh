@@ -77,6 +77,8 @@ apt_pkgs=(
   openssh-client
   python3-pip
   python3-pygments
+  python3-venv
+  python3-full
   openssh-client
   openssh-server
 )
