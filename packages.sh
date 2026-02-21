@@ -98,5 +98,5 @@ cargo_pkgs=(
 
 # binded directories
 binded_dirs=(
-  "--bind /mnt /mnt"
+  '-b "--bind /mnt /mnt"'
 )
