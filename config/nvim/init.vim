@@ -4,6 +4,7 @@ call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 Plug 'nxhung2304/lastplace.nvim'
+Plug 'christoomey/vim-tmux-navigator'
 
 " code
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
