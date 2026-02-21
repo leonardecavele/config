@@ -1,8 +1,8 @@
 # detect junest
 if is_junest; then
-  RUN=()
-else
   RUN=("$JUNEST" -n)
+else
+  RUN=()
 fi
 
 # update cargo packages

@@ -1,7 +1,8 @@
 # exports
 export JUNEST=/home/leona/.user-env/junest/bin/junest
 export JUNEST_REPOSITORY=/home/leona/.user-env/junest
-export SCRIPT_DIRECTORY=/home/leona/.archlinux-env
+export SCRIPT_DIRECTORY=/home/leona/.user-env
+SCRIPT_DIRECTORY=$HOME/.user-env
 
 # stop if not interactive
 case $- in
@@ -12,14 +13,19 @@ esac
 
 # get helpers and options
 source "$SCRIPT_DIRECTORY/packages.sh"
-source "$SCRIPT_DIRECTORY/srcs/helper.sh"
-source "$SCRIPT_DIRECTORY/srcs/custom_commands.sh"
+source "$SCRIPT_DIRECTORY/srcs/utils.sh"
+source "$SCRIPT_DIRECTORY/srcs/user_commands.sh"
 source "$SCRIPT_DIRECTORY/srcs/colors.sh"
 
 # junest
-export PATH="$HOME/.local/share/junest/bin:$PATH"
-export PATH="$HOME/.junest/usr/bin_wrappers:$PATH"
-export JUNEST_ARGS="$binded_dirs"
+if is_junest; then
+  export PATH="$HOME/.local/share/junest/bin:$PATH"
+  export PATH="$HOME/.junest/usr/bin_wrappers:$PATH"
+  export JUNEST_ARGS="$binded_dirs"
+fi
+
+# cargo
+export PATH="$PATH:$HOME/.cargo/bin"
 
 # aliases
 alias user_env='$SCRIPT_DIRECTORY/install_config.sh'

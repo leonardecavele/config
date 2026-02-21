@@ -1,0 +1,5 @@
+build-essential
+flake8
+manpages
+mypy
+rustc

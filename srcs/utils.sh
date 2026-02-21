@@ -75,3 +75,36 @@ in_tmux() {
   [ -n "${TMUX:-}" ] || [ "${TERM:-}" = "screen" ] || [ "${TERM:-}" = "screen-256color" ] \
     || [ "${TERM:-}" = "tmux" ] || [ "${TERM:-}" = "tmux-256color" ]
 }
+
+can_delete_apt() {
+  local pkg="$1"
+
+  mapfile -t remv < <(apt-get -s remove "$pkg" 2>/dev/null | awk '/^Remv /{print $2}')
+
+  if [ "${#remv[@]}" -ne 1 ] || [ "${remv[0]}" != "$pkg" ]; then
+    return 1
+  fi
+  return 0
+}
+
+can_delete_dnf() {
+  local pkg="$1"
+
+  local out
+  out=$(sudo dnf remove -y --assumeno "$pkg" 2>/dev/null) || return 1
+
+  local n
+  n=$(printf '%s\n' "$out" | awk '
+    BEGIN{in=0;c=0}
+    /^Remove[[:space:]]+/{in=1;next}
+    /^Transaction Summary/{next}
+    in && NF==0{in=0}
+    in && $1 ~ /^[[:alnum:]][[:alnum:]._+-]*$/ {c++}
+    END{print c+0}
+  ')
+  [ "$n" -eq 1 ] || return 1
+
+  printf '%s\n' "$out" | grep -qE "(^|[[:space:]])$pkg([[:space:]]|$)" || return 1
+
+  return 0
+}

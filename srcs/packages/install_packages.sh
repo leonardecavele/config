@@ -1,8 +1,8 @@
 # detect junest
 if is_junest; then
-  RUN=()
-else
   RUN=("$JUNEST" -n)
+else
+  RUN=()
 fi
 
 # detect package manager
@@ -46,7 +46,7 @@ done
 if [ "${#missing_cargos[@]}" -eq 0 ]; then
   echo "nothing to do"
 else
-  "${RUN[@]}" cargo install "${missing_cargos[@]}"
+  "${RUN[@]}" cargo install "${missing_cargos[@]}" --locked
 fi
 
 log_info "$0" "successfully installed cargo packages"

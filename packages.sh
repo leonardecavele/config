@@ -3,16 +3,13 @@ common_pkgs=(
   neovim
   tmux
   less
-  rust
   xclip
   wl-clipboard
   xsel
   vulkan-tools
   pciutils
-  macchina
   which
   tree
-  openssh
   nodejs
   npm
   curl
@@ -26,6 +23,7 @@ common_pkgs=(
 pacman_pkgs=(
   flake8
   mypy
+  openssh
   base-devel
   man-pages
   libxcb
@@ -33,12 +31,14 @@ pacman_pkgs=(
   vulkan-icd-loader
   libbsd
   mesa
+  rust
   vulkan-swrast
   tree-sitter-cli
   python-pip
   pygmentize
   pyright
 )
+pacman_pkgs+=("${common_pkgs[@]}")
 
 # dnf package list
 dnf_pkgs=(
@@ -47,19 +47,24 @@ dnf_pkgs=(
   @development-tools
   man-pages
   libxcb
+  openssh-client
+  openssh-server
   xcb-util-keysyms
   vulkan-loader
   libbsd
+  rustc
   mesa-dri-drivers
   vulkan-swrast
   tree-sitter
   python3-pip
   python3-pygments
 )
+dnf_pkgs+=("${common_pkgs[@]}")
 
 # apt package list
 apt_pkgs=(
   flake8
+  rustc
   mypy
   build-essential
   manpages
@@ -72,7 +77,10 @@ apt_pkgs=(
   openssh-client
   python3-pip
   python3-pygments
+  openssh-client
+  openssh-server
 )
+apt_pkgs+=("${common_pkgs[@]}")
 
 # npm package list
 npm_pkgs=(
@@ -83,6 +91,7 @@ npm_directory=$HOME/.npm-global
 
 # cargo package list
 cargo_pkgs=(
+  macchina
 )
 
 # binded directories

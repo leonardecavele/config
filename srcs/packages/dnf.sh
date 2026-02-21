@@ -21,9 +21,11 @@ elif [ "${1-}" = "-d" ] ; then
 
   for pkg in "${dnf_pkgs[@]}"; do
     if rpm -q "$pkg" >/dev/null 2>&1; then
-      if ! sudo dnf remove -y "$pkg" </dev/null; then
-        log_info "$0" "skipped (blocked by deps?): $pkg"
-      fi
+	  if ! can_delete_dnf "$pkg"; then
+        if ! sudo dnf remove -y "$pkg" </dev/null; then
+          log_info "$0" "skipped (blocked by deps?): $pkg"
+        fi
+	  fi
     fi
   done
   sudo dnf clean all -y </dev/null || true

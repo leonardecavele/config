@@ -107,4 +107,4 @@ log_info "$0" "vim plug installed: please run ':PlugInstall'"
 
 # shell reload
 log_info "$0" "reloading shell"
-source $HOME/.bashrc
+exec bash -i
