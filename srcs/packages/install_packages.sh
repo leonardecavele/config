@@ -50,3 +50,29 @@ else
 fi
 
 log_info "$0" "successfully installed cargo packages"
+
+# nvim
+log_info "$0" "installing nvim"
+
+if ! is_nvim; then
+  curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+  chmod u+x nvim.appimage
+  ./nvim.appimage
+  
+  mkdir -p ~/.local/bin
+  mv nvim.appimage ~/.local/bin/nvim
+fi
+
+log_info "$0" "nvim successfully installed"
+
+# vim-plug
+log_info "$0" "installing vim plug"
+
+data_home="${XDG_DATA_HOME:-$HOME/.local/share}"
+plug_path="$data_home/nvim/site/autoload/plug.vim"
+if [ ! -f "$plug_path" ]; then
+  curl -sfLo "$plug_path" --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
+fi
+
+log_info "$0" "vim plug succesfully installed (hint: ':PlugInstall')"

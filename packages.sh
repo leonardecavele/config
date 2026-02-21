@@ -1,6 +1,5 @@
 # common package list
 common_pkgs=(
-  neovim
   tmux
   less
   xclip
@@ -33,6 +32,7 @@ pacman_pkgs=(
   mesa
   rust
   vulkan-swrast
+  neovim
   tree-sitter-cli
   python-pip
   pygmentize

@@ -23,6 +23,10 @@ is_npm() {
   command -v npm >/dev/null 2>&1
 }
 
+is_nvim() {
+    command -v nvim >/dev/null 2>&1
+}
+
 is_cargo() {
   command -v cargo >/dev/null 2>&1
 }

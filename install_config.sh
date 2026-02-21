@@ -93,18 +93,6 @@ for path in "$SCRIPT_DIRECTORY/config"/.[!.]* "$SCRIPT_DIRECTORY/config"/..?*; d
   ln -svf "$path" "$HOME/" || true
 done
 
-# vim-plug
-log_info "$0" "installing vim plug"
-
-data_home="${XDG_DATA_HOME:-$HOME/.local/share}"
-plug_path="$data_home/nvim/site/autoload/plug.vim"
-if [ ! -f "$plug_path" ]; then
-  curl -sfLo "$plug_path" --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
-fi
-
-log_info "$0" "vim plug installed: please run ':PlugInstall'"
-
 # shell reload
 log_info "$0" "reloading shell"
 exec bash -i
