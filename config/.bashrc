@@ -27,7 +27,7 @@ export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/bin"
 
 # aliases
-alias user_env='$SCRIPT_DIRECTORY/install_config.sh'
+alias ue='$SCRIPT_DIRECTORY/install_config.sh'
 alias ra='rm a.out'
 alias c='cc -Wall -Wextra -Werror'
 alias n='norminette -R CheckForbiddenSourceHeader'
