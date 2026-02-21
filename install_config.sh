@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# strict with errors
-set -euo pipefail
-
 # sources
 export SCRIPT_DIRECTORY="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 export JUNEST_REPOSITORY="$SCRIPT_DIRECTORY/junest"
