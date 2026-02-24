@@ -2,7 +2,7 @@
 
 # sources
 export SCRIPT_DIRECTORY="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-export JUNEST_REPOSITORY="$SCRIPT_DIRECTORY/junest"
+export JUNEST_REPOSITORY="$HOME/.local/share/junest"
 export JUNEST="${JUNEST:-$JUNEST_REPOSITORY/bin/junest}"
 
 source "$SCRIPT_DIRECTORY/packages.sh"
