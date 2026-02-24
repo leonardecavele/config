@@ -1,6 +1,6 @@
 is_junest() {
-  command -v $JUNEST >/dev/null 2>&1 \
-  && $JUNEST --version >/dev/null 2>&1
+  command -v junest >/dev/null 2>&1 \
+  && junest --version >/dev/null 2>&1
 }
 
 is_pacman() {

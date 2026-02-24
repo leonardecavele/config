@@ -9,8 +9,6 @@ common_pkgs=(
   pciutils
   which
   tree
-  nodejs
-  npm
   curl
   git
   tar
@@ -22,6 +20,7 @@ common_pkgs=(
 pacman_pkgs=(
   fuse2
   flake8
+  gcc
   mypy
   openssh
   base-devel
@@ -34,6 +33,7 @@ pacman_pkgs=(
   rust
   vulkan-swrast
   python-pip
+  llvm
   pygmentize
   pyright
 )
@@ -84,13 +84,11 @@ apt_pkgs+=("${common_pkgs[@]}")
 # npm package list
 npm_pkgs=(
   pyright
-  tree-sitter-cli
 )
-
-npm_directory=$HOME/.npm-global
 
 # cargo package list
 cargo_pkgs=(
+  tree-sitter-cli
   macchina
 )
 

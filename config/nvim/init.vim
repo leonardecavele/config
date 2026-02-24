@@ -12,7 +12,7 @@ Plug 'mfussenegger/nvim-lint'
 Plug 'rmagatti/logger.nvim'
 Plug 'rmagatti/goto-preview'
 Plug 'camAtGitHub/pydochide.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter'
 
 " code -> lsp
 Plug 'mason-org/mason.nvim'

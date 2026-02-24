@@ -3,7 +3,6 @@
 # sources
 export SCRIPT_DIRECTORY="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 export JUNEST_REPOSITORY="$HOME/.local/share/junest"
-export JUNEST="${JUNEST:-$JUNEST_REPOSITORY/bin/junest}"
 
 source "$SCRIPT_DIRECTORY/packages.sh"
 source "$SCRIPT_DIRECTORY/srcs/colors.sh"
@@ -11,12 +10,11 @@ source "$SCRIPT_DIRECTORY/srcs/utils.sh"
 
 export_in_bashrc "SCRIPT_DIRECTORY" "$SCRIPT_DIRECTORY"
 export_in_bashrc "JUNEST_REPOSITORY" "$JUNEST_REPOSITORY"
-export_in_bashrc "JUNEST" "$JUNEST"
 
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-  log_error "$0" "this script must be sourced not executed"
-  exit 1
-fi
+# to do
+PATH="$HOME/.local/share/junest/bin:$PATH"
+PATH="$PATH:$HOME/.junest/usr/bin_wrappers"
+JUNEST_ARGS="$binded_dirs"
 
 # check arguments validity
 if [[ "${1-}" == "-h" || ( "${1-}" != "-i" && "${1-}" != "-u" && "${1-}" != "-d" ) ]]; then
@@ -58,6 +56,9 @@ if [ "${1-}" = "-d" ]; then
   if is_junest; then
     rm -rf -- "$JUNEST_REPOSITORY" "$HOME/.junest"
   fi
+
+  # delete nvim cache
+  rm -rf $HOME/.cache/nvim
 
   # delete fonts
   source "$SCRIPT_DIRECTORY/srcs/fonts/delete_fonts.sh"

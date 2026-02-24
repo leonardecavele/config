@@ -1,14 +1,10 @@
-if is_junest; then
-  PATH="$PATH:$HOME/.junest/usr/bin_wrappers"
-fi
-
 # detect package manager
 if ! is_sudo || is_pacman; then
-  source "$SCRIPT_DIRECTORY/srcs/packages/pacman.sh" -i
+   source "$SCRIPT_DIRECTORY/srcs/packages/pacman.sh" -i
 elif is_dnf; then
-  source "$SCRIPT_DIRECTORY/srcs/packages/dnf.sh" -i
+   source "$SCRIPT_DIRECTORY/srcs/packages/dnf.sh" -i
 elif is_apt; then
-  source "$SCRIPT_DIRECTORY/srcs/packages/apt.sh" -i
+   source "$SCRIPT_DIRECTORY/srcs/packages/apt.sh" -i
 fi
 
 # install npm packages
@@ -17,9 +13,8 @@ log_info "$0" "installing npm packages"
 export NVM_DIR="$HOME/.nvm"
 curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh" | bash
 source "$NVM_DIR/nvm.sh"
-
 nvm install node
-nvm use latest
+nvm use node
 
 missing_npms=()
 for pkg in "${npm_pkgs[@]}"; do
@@ -27,13 +22,12 @@ for pkg in "${npm_pkgs[@]}"; do
     missing_npms+=("$pkg")
   fi
 done
-  
+
 if [ "${#missing_npms[@]}" -eq 0 ]; then
   echo "nothing to do"
 else
-  npm i -g --no-fund --no-audit "${missing_npms[@]}"
+  npm install -g "${missing_npms[@]}"
 fi
-PATH="$HOME/.npm-global/bin:$PATH"
 
 log_info "$0" "successfully installed npm packages"
 

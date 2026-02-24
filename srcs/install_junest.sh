@@ -18,7 +18,7 @@ fi
 
 # install junest
 log_info "$0" "installing junest"
-"$JUNEST" setup
-"$JUNEST" -f -- sudo pacman --noconfirm -Syy
-"$JUNEST" -f -- sudo pacman --noconfirm -Sy archlinux-keyring
+junest setup
+junest -- sudo pacman --noconfirm -Syy
+junest -- sudo pacman --noconfirm -Sy archlinux-keyring
 log_info "$0" "done installing junest"

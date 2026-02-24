@@ -10,16 +10,19 @@ else
   log_info "$0" "can't find cargo"
 fi
 
+rm -rf "$HOME/.cargo"
+
 # delete npm packages
 log_info "$0" "deleting npm packages"
 
 if is_npm; then
-  npm config set prefix "$npm_directory"
-  sudo npm uninstall -g "${npm_pkgs[@]}"
+  npm uninstall -g "${npm_pkgs[@]}"
   log_info "$0" "successfully deleted npm packages"
 else
   log_info "$0" "can't find npm"
 fi
+
+rm -rf "$HOME/.npm" "$HOME/.nvm"
 
 # delete nvim
 if is_nvim; then
