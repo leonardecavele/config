@@ -32,6 +32,8 @@ else
   "${RUN[@]}" npm i -g --prefix "$npm_directory" --no-fund --no-audit "${missing_npms[@]}"
 fi
 
+PATH="$HOME/.npm-global/bin:$PATH"
+
 log_info "$0" "successfully installed npm packages"
 
 # install cargo packages
@@ -67,16 +69,18 @@ log_info "$0" "nvim successfully installed"
 # vim-plug
 log_info "$0" "installing vim plug"
 
-data_home="${XDG_DATA_HOME:-$HOME/.local/share}"
-plug_path="$data_home/nvim/site/autoload/plug.vim"
-if [ ! -f "$plug_path" ]; then
-  curl -sfLo "$plug_path" --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
+if is_nvim; then
+  data_home="${XDG_DATA_HOME:-$HOME/.local/share}"
+  plug_path="$data_home/nvim/site/autoload/plug.vim"
+  if [ ! -f "$plug_path" ]; then
+    curl -sfLo "$plug_path" --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
+  fi
+  "$HOME/.local/bin/nvim" --headless +'PlugInstall --sync' +qa \
+    || { log_error "$0" "PlugInstall failed"; return; }
+  "$HOME/.local/bin/nvim" --headless +'PlugUpdate --sync' +qa \
+    || { log_error "$0" "PlugUpdate failed"; return; }
+  echo
 fi
-"$HOME/.local/bin/nvim" --headless +'PlugInstall --sync' +qa \
-  || { log_error "$0" "PlugInstall failed"; return; }
-"$HOME/.local/bin/nvim" --headless +'PlugUpdate --sync' +qa \
-  || { log_error "$0" "PlugUpdate failed"; return; }
-echo
 
 log_info "$0" "vim plug succesfully installed"

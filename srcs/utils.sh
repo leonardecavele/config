@@ -25,7 +25,7 @@ is_npm() {
 }
 
 is_nvim() {
-  command -v nvim >/dev/null 2>&1
+  [[ -x $HOME/.local/bin/nvim ]]
 }
 
 is_cargo() {
